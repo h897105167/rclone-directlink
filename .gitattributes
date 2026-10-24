@@ -1,0 +1,7 @@
+# Keep the patch and the shell script byte-stable: a CRLF-converted .diff will
+# not apply, and a CRLF shell script will not run on Linux/macOS.
+*                  text=auto eol=lf
+*.diff             text eol=lf
+*.sh               text eol=lf
+*.ps1              text eol=crlf
+*.md               text eol=lf

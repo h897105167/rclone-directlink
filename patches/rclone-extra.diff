@@ -1,0 +1,30 @@
+diff --git a/backend/teldrive/api/types.go b/backend/teldrive/api/types.go
+index ecccc18..35b7d35 100644
+--- a/backend/teldrive/api/types.go
++++ b/backend/teldrive/api/types.go
+@@ -31,6 +31,9 @@ type FileInfo struct {
+ 	Generation int64     `json:"generation"`
+ 	CreatedAt  time.Time `json:"createdAt"`
+ 	UpdatedAt  time.Time `json:"updatedAt"`
++	// DirectUrl is stamped by a TelDrive server that publishes stable direct
++	// links on upload completion. Older servers leave the field empty.
++	DirectUrl string `json:"directUrl,omitempty"`
+ }
+ 
+ type ReadMetadataResponse struct {
+diff --git a/backend/teldrive/upload.go b/backend/teldrive/upload.go
+index 2fa407e..bca9c6c 100644
+--- a/backend/teldrive/upload.go
++++ b/backend/teldrive/upload.go
+@@ -492,6 +492,11 @@ func (o *Object) completeUpload(ctx context.Context, info *uploadInfo) (*api.Fil
+ 		return nil, err
+ 	}
+ 	o.applyFileInfo(&file)
++	// Local patch: a patched TelDrive server returns the stable direct link in
++	// the completion response, so print it instead of throwing it away.
++	if file.DirectUrl != "" {
++		fs.Logf(o, "Direct link: %s", file.DirectUrl)
++	}
+ 	return &file, nil
+ }
+ 

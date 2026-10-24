@@ -1,0 +1,17 @@
+# build artefacts
+out/
+_build/
+
+# never commit credentials or local rclone state
+rclone.conf
+*.conf
+!patches/*.conf
+*.log
+*.exe
+*.zip
+
+# editor / OS noise
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
