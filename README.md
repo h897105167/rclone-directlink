@@ -27,7 +27,7 @@ https://direct.example.org/<hmac-token>/<filename>
 
 | 文件 | 改动 | 行数 |
 | --- | --- | --- |
-| `backend/teldrive/api/types.go` | `FileInfo` 增加 `DirectUrl string \`json:"directUrl,omitempty"\`` | +3 |
+| `backend/teldrive/api/types.go` | `FileInfo` 增加 `DirectUrl`（json tag `directUrl,omitempty`） | +3 |
 | `backend/teldrive/upload.go` | `completeUpload` 里 `applyFileInfo` 之后打印直链 | +5 |
 
 完整补丁：[`patches/rclone-extra.diff`](patches/rclone-extra.diff)（1150 B）。
